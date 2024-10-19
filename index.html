@@ -3,10 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Website</title>
+    <title>ChatGPT CMD (Fake)</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .line {
+            display: flex;
+            white-space: nowrap;
+        }
+
+        .line:before {
+            content: "> ";
+            color: #00ff00;
+        }
+
+        .output {
+            white-space: pre-wrap;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .cursor {
+            width: 10px;
+            height: 20px;
+            background-color: #00ff00;
+            display: inline-block;
+            animation: blink 1s steps(2) infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        input {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Random Website!</h1>
-    <p>This is a quick demo of a site hosted on GitHub Pages.</p>
+    <div id="container">
+        <div class="output" id="output"></div>
+        <div class="line">
+            <span>> </span>
+            <input type="text" id="input" autofocus autocomplete="off" />
+            <span class="cursor"></span>
+        </div>
+    </div>
+
+    <script>
+        const inputElement = document.getElementById('input');
+        const outputElement = document.getElementById('output');
+
+        const responses = [
+            "Hello! How can I assist you today?",
+            "I'm ChatGPT, ask me anything!",
+            "That's an interesting question!",
+            "Let me think about that...",
+            "Sorry, I don't understand.",
+            "Could you clarify your question?",
+            "I'm here to help you with anything.",
+            "Ask me anything about technology!"
+        ];
+
+        inputElement.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                const userInput = inputElement.value;
+                appendToOutput("> " + userInput);
+                inputElement.value = '';
+
+                // Генерация случайного ответа
+                const randomResponse = getRandomResponse();
+                setTimeout(() => {
+                    appendToOutput(randomResponse);
+                }, 500); // Имитация времени обработки
+            }
+        });
+
+        function appendToOutput(text) {
+            outputElement.innerHTML += text + '\n';
+            outputElement.scrollTop = outputElement.scrollHeight;
+        }
+
+        function getRandomResponse() {
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+    </script>
 </body>
 </html>
